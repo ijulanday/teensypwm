@@ -3,9 +3,13 @@
 SysData systemData; //Create a pointer to the system data
 int delayTime = 0;
 
-// throttle% = 0.202(pwm) + 311.717 for fly sky controller
+// throttle% = -0.00202(pwm) + 3.11717 for fly sky controller
 void calcThrottlePercent() {
-    systemData.throttlePercent = -0.00202*systemData.manualThrottlePWM + 3.11717;
+  systemData.throttlePercent = -0.00202*systemData.manualThrottlePWM + 3.11717;
+}
+
+void calcSteeringAngle() {
+  systemData.steeringAngle = (systemData.manualSteeringPWM - 1000) * 0.18;
 }
 
 void risingCH1();

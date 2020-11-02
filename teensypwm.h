@@ -32,6 +32,7 @@ double manualSteeringPWM = 1500;
 double autopilotSteeringPWM = 1500;
 double CH3PWM;
 double throttlePercent;
+double steeringAngle;
 unsigned long futabaCH3PWM = 1000;
 unsigned long ch1Timer;
 unsigned long ch2Timer;
@@ -44,6 +45,7 @@ extern SysData systemData; //Create a pointer to the system data
 #ifndef TEENSYPWM_H
 #define TEENSYPWM_H
 void calcThrottlePercent();
+void calcSteeringAngle();
 void risingCH1();
 void risingCH2();
 void risingCH3();
