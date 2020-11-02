@@ -1,5 +1,14 @@
 #include <Arduino.h>
 
+#ifndef TEENSYPWM_H
+#define TEENSYPWM_H
+
+void calcThrottlePercent();
+void calcSteeringAngle();
+void risingCH1();
+void risingCH2();
+void risingCH3();
+
 typedef enum
 {  
   STEERING_SERVO_PIN = 3,
@@ -42,11 +51,4 @@ unsigned long ch3Timer;
 
 extern SysData systemData; //Create a pointer to the system data
 
-#ifndef TEENSYPWM_H
-#define TEENSYPWM_H
-void calcThrottlePercent();
-void calcSteeringAngle();
-void risingCH1();
-void risingCH2();
-void risingCH3();
 #endif
