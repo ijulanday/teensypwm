@@ -22,11 +22,11 @@ static THD_FUNCTION(ThreadSERIAL, arg)
     (void)arg;
     while (true)
     {
-        Serial.print(systemData.manualSteeringPWM);
+        Serial.print(pwmData.manualSteeringPWM);
         Serial.print(", \t");
-        Serial.print(systemData.manualThrottlePWM);
+        Serial.print(pwmData.manualThrottlePWM);
         Serial.print(", \t");
-        Serial.println(systemData.CH3PWM);
+        Serial.println(pwmData.CH3PWM);
         chThdSleepMilliseconds(10);
     }
 }

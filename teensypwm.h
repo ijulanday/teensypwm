@@ -47,8 +47,8 @@ unsigned long ch1Timer;
 unsigned long ch2Timer;
 unsigned long ch3Timer;
 
-} SysData;
+} PWMdata;
 
-extern SysData systemData; //Create a pointer to the system data
+extern PWMdata pwmData; //Create a pointer to the system data
 
 #endif
