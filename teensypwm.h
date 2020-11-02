@@ -43,6 +43,7 @@ extern SysData systemData; //Create a pointer to the system data
 
 #ifndef TEENSYPWM_H
 #define TEENSYPWM_H
+void calcThrottlePercent();
 void risingCH1();
 void risingCH2();
 void risingCH3();
