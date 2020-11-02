@@ -49,6 +49,7 @@ void setup()
     delay(1);
   }
  
+  // attach interrupt pins in setup
   attachInterrupt(digitalPinToInterrupt(15), risingCH1, RISING);
   attachInterrupt(digitalPinToInterrupt(16), risingCH2, RISING);
   attachInterrupt(digitalPinToInterrupt(17), risingCH3, RISING);
