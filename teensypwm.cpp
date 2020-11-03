@@ -1,6 +1,6 @@
 #include "teensypwm.h"
 
-PWMdata pwmData; //Create a pointer to the system data
+PWMdata pwmData; // pwm data instance
 int delayTime = 0;
 
 // throttle% = -0.00202(pwm) + 3.11717 for fly sky controller
