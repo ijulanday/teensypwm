@@ -16,6 +16,7 @@ void risingCH1();
 void fallingCH1()
 {
   pwmData.manualSteeringPWM = (micros() - delayTime) - pwmData.ch1Timer;
+  calcSteeringAngle();
   attachInterrupt(digitalPinToInterrupt(STEERING_INTERRUPT_PIN), risingCH1, RISING);
 }
 void risingCH1()
@@ -27,6 +28,7 @@ void risingCH2();
 void fallingCH2()
 {
   pwmData.manualThrottlePWM = (micros() - delayTime) - pwmData.ch2Timer;
+  calcThrottlePercent();
   attachInterrupt(digitalPinToInterrupt(THROTTLE_INTERRUPT_PIN), risingCH2, RISING);
 }
 void risingCH2()
