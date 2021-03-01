@@ -46,6 +46,8 @@ double steeringPWM;
 double steeringFilteredPWM;
 double manualSteeringPWM = 1500;
 double autopilotSteeringPWM = 1500;
+// other variables
+bool ch3toggle;
 double CH3PWM;
 double throttlePercent;
 double steeringAngle;

@@ -40,6 +40,7 @@ void risingCH3();
 void fallingCH3()
 {
   pwmData.CH3PWM = (micros() - delayTime) - pwmData.ch3Timer;
+  pwmData.ch3toggle = pwmData.CH3PWM > 1500 ? true : false;
   attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), risingCH3, RISING);
 }
 void risingCH3()
