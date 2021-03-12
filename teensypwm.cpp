@@ -28,6 +28,7 @@ void risingCH2();
 void fallingCH2()
 {
   pwmData.manualThrottlePWM = (micros() - delayTime) - pwmData.ch2Timer;
+  pwmData.mappedThrottlePWM = map(pwmData.manualThrottlePWM, 1500, 2000, 1000, 2000);
   calcThrottlePercent();
   attachInterrupt(digitalPinToInterrupt(THROTTLE_INTERRUPT_PIN), risingCH2, RISING);
 }

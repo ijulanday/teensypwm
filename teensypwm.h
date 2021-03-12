@@ -38,16 +38,16 @@ typedef enum
 typedef struct
 {
 //THROTTLE PID VARIABLES
-double throttlePWM;
+double mappedThrottlePWM = 900;
 double manualThrottlePWM = 1500;
-double autopilotThrottlePWM = 1550;
+double autopilotThrottlePWM = 1500;
 //STEERING PID VARIABLES
 double steeringPWM;
 double steeringFilteredPWM;
 double manualSteeringPWM = 1500;
 double autopilotSteeringPWM = 1500;
 // other variables
-bool ch3toggle;
+bool ch3toggle = 0;
 double CH3PWM;
 double throttlePercent;
 double steeringAngle;
