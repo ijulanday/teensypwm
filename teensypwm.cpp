@@ -9,7 +9,7 @@ void calcThrottlePercent() {
 }
 
 void calcSteeringAngle() {
-  pwmData.steeringAngle = map(pwmData.manualSteeringPWM, 1000, 2000, -25.0, 25.0);
+  pwmData.steeringAngle = map(pwmData.manualSteeringPWM, 1000, 2000, -20.0, 20.0);
 }
 
 void risingCH1();
