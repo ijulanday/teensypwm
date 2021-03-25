@@ -5,17 +5,17 @@ int delayTime = 0;
 
 // throttle% = -0.00202(pwm) + 3.11717 for fly sky controller
 void calcThrottlePercent() {
-  pwmData.throttlePercent = -0.00202*pwmData.manualThrottlePWM + 3.11717;
+  pwmData.throttlePercent = -0.00202*pwmData.rawThrottlePWM + 3.11717;
 }
 
 void calcSteeringAngle() {
-  pwmData.steeringAngle = map(pwmData.manualSteeringPWM, 1000, 2000, -20.0, 20.0);
+  pwmData.steeringAngle = map(pwmData.rawSteeringPWM, 1000, 2000, -20.0, 20.0);
 }
 
 void risingCH1();
 void fallingCH1()
 {
-  pwmData.manualSteeringPWM = (micros() - delayTime) - pwmData.ch1Timer;
+  pwmData.rawSteeringPWM = (micros() - delayTime) - pwmData.ch1Timer;
   calcSteeringAngle();
   attachInterrupt(digitalPinToInterrupt(STEERING_INTERRUPT_PIN), risingCH1, RISING);
 }
@@ -27,8 +27,8 @@ void risingCH1()
 void risingCH2();
 void fallingCH2()
 {
-  pwmData.manualThrottlePWM = (micros() - delayTime) - pwmData.ch2Timer;
-  pwmData.mappedThrottlePWM = map(pwmData.manualThrottlePWM, 1500, 2000, 1000, 2000); // actual input mapped to desired output
+  pwmData.rawThrottlePWM = (micros() - delayTime) - pwmData.ch2Timer;
+  pwmData.mappedThrottlePWM = map(pwmData.rawThrottlePWM, 1500, 2000, 1000, 2000); // actual input mapped to desired output
   calcThrottlePercent();
   attachInterrupt(digitalPinToInterrupt(THROTTLE_INTERRUPT_PIN), risingCH2, RISING);
 }

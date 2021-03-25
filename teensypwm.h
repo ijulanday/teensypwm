@@ -29,10 +29,10 @@ typedef struct
 {
 //THROTTLE PID VARIABLES
 double mappedThrottlePWM = 900;
-double manualThrottlePWM = 1500;
+double rawThrottlePWM = 1500;
 double autopilotThrottlePWM = 1500;
 //STEERING PID VARIABLES
-double steeringPWM;
+double rawSteeringPWM;
 double steeringFilteredPWM;
 double manualSteeringPWM = 1500;
 double autopilotSteeringPWM = 1500;
