@@ -32,13 +32,13 @@ double mappedThrottlePWM = 900;
 double rawThrottlePWM = 1500;
 double autopilotThrottlePWM = 1500;
 //STEERING PID VARIABLES
-double rawSteeringPWM;
+double rawSteeringPWM = 1500;
 double steeringFilteredPWM;
 double manualSteeringPWM = 1500;
 double autopilotSteeringPWM = 1500;
 // other variables
 bool ch3toggle = 0;
-double CH3PWM;
+double CH3PWM = 1000;
 double throttlePercent;
 double steeringAngle;
 unsigned long futabaCH3PWM = 1000;
