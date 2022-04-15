@@ -10,42 +10,34 @@
 #define TMAP_MAX_OUT      1000
 #define TMAP_MIN_OUT      2000
 
-void calcThrottlePercent();
-void calcSteeringAngle();
 void risingCH1();
 void risingCH2();
 void risingCH3();
+void fallingCH1();
+void fallingCH2();
+void fallingCH3();
 
 typedef enum
 {  
-  STEERING_INTERRUPT_PIN = 18,
-  THROTTLE_INTERRUPT_PIN = 19,
-  CH3_INTERRUPT_PIN = 20,
-  SWITCH_POS_1 = A0,
-  SWITCH_POS_2 = A1
+  CH1_INTERRUPT_PIN = 24,
+  CH2_INTERRUPT_PIN = 25,
+  CH3_INTERRUPT_PIN = 33,
+  SWITCH_PAYLOAD = A1
 } Pins;
 
 typedef struct
 {
-//THROTTLE PID VARIABLES
-double mappedThrottlePWM = 900;
-double rawThrottlePWM = 1500;
-double autopilotThrottlePWM = 1500;
-//STEERING PID VARIABLES
-double rawSteeringPWM = 1500;
-double steeringFilteredPWM;
-double manualSteeringPWM = 1500;
-double autopilotSteeringPWM = 1500;
-// other variables
-bool ch3toggle = 0;
-double CH3PWM = 1000;
-double throttlePercent;
-double steeringAngle;
+unsigned long ch1PWM = 1500;
+unsigned long ch2PWM = 1500;
+unsigned long ch3PWM = 1500;
+unsigned long prevCh1PWM = 1500;
+unsigned long prevCh2PWM = 1500;
+unsigned long prevCh3PWM = 1500;
+
 unsigned long futabaCH3PWM = 1000;
 unsigned long ch1Timer;
 unsigned long ch2Timer;
 unsigned long ch3Timer;
-
 } PWMdata;
 
 extern PWMdata pwmData; //Create a pointer to the system data
