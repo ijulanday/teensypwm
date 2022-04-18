@@ -22,7 +22,6 @@ typedef enum
   CH1_INTERRUPT_PIN = 24,
   CH2_INTERRUPT_PIN = 25,
   CH3_INTERRUPT_PIN = 33,
-  SWITCH_PAYLOAD = A1
 } Pins;
 
 typedef struct
