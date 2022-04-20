@@ -17,8 +17,8 @@ void fallingApThr();
 
 typedef enum
 {  
-  APSTR_INTERRUPT_PIN = 24,
-  APTHR_INTERRUPT_PIN = 25,
+  APSTR_INTERRUPT_PIN = 6,
+  APTHR_INTERRUPT_PIN = 5,
 } Pins;
 
 typedef struct
