@@ -8,6 +8,12 @@ bool acceptable(unsigned long pwm)
   return pwm >= 900 & pwm <= 2000;
 }
 
+void PWMSetup() 
+{
+  attachInterrupt(digitalPinToInterrupt(APSTR_INTERRUPT_PIN), risingApStr, RISING);
+  attachInterrupt(digitalPinToInterrupt(APTHR_INTERRUPT_PIN), risingApThr, RISING);
+}
+
 void fallingApStr()
 {
   pwmData.prevApStrPWM = pwmData.ApStrPWM;

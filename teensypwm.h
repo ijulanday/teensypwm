@@ -10,6 +10,7 @@
 #define TMAP_MAX_OUT      1000
 #define TMAP_MIN_OUT      2000
 
+void PWMSetup();
 void risingApStr();
 void risingApThr();
 void fallingApStr();
@@ -17,8 +18,8 @@ void fallingApThr();
 
 typedef enum
 {  
-  APSTR_INTERRUPT_PIN = 6,
-  APTHR_INTERRUPT_PIN = 5,
+  APSTR_INTERRUPT_PIN = 5,
+  APTHR_INTERRUPT_PIN = 6,
 } Pins;
 
 typedef struct
