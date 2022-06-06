@@ -5,7 +5,7 @@ int delayTime = 0;  //this is like a trim kinda thing, probably keep at zero
 
 bool acceptable(unsigned long pwm) 
 {
-  return pwm >= 900 & pwm <= 2000;
+  return (pwm >= 900) & (pwm <= 2000);
 }
 
 void PWMSetup() 
