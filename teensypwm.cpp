@@ -1,52 +1,88 @@
 #include "teensypwm.h"
 
 PWMdata pwmData; // pwm data instance
-int delayTime = 0;
+int delayTime = 0;  //this is like a trim kinda thing, probably keep at zero
 
-// throttle% = -0.00202(pwm) + 3.11717 for fly sky controller
-void calcThrottlePercent() {
-  pwmData.throttlePercent = -0.00202*pwmData.manualThrottlePWM + 3.11717;
-}
-
-void calcSteeringAngle() {
-  pwmData.steeringAngle = map(pwmData.manualSteeringPWM, 1000, 2000, -20.0, 20.0);
+bool acceptable(unsigned long pwm) 
+{
+  return (pwm >= 900) & (pwm <= 2000);
 }
 
-void risingCH1();
-void fallingCH1()
+void PWMSetup() 
 {
-  pwmData.manualSteeringPWM = (micros() - delayTime) - pwmData.ch1Timer;
-  calcSteeringAngle();
-  attachInterrupt(digitalPinToInterrupt(STEERING_INTERRUPT_PIN), risingCH1, RISING);
+  attachInterrupt(digitalPinToInterrupt(APSTR_INTERRUPT_PIN), risingApStr, RISING);
+  attachInterrupt(digitalPinToInterrupt(APTHR_INTERRUPT_PIN), risingApThr, RISING);
+  attachInterrupt(digitalPinToInterrupt(STR_INTERRUPT_PIN), risingStr, RISING);
+  attachInterrupt(digitalPinToInterrupt(THR_INTERRUPT_PIN), risingThr, RISING);
+  attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), risingCh3, RISING);
 }
-void risingCH1()
+void smooth(long throttle)
 {
-  pwmData.ch1Timer = micros();
-  attachInterrupt(digitalPinToInterrupt(STEERING_INTERRUPT_PIN), fallingCH1, FALLING);
+  pwmData.smoothedThrottle = pwmData.smoothingWeight * throttle + (1.0 - pwmData.smoothingWeight) * pwmData.prevThrottle;
+  pwmData.prevThrottle = pwmData.smoothedThrottle;
 }
-void risingCH2();
-void fallingCH2()
+void fallingApStr()
 {
-  pwmData.manualThrottlePWM = (micros() - delayTime) - pwmData.ch2Timer;
-  pwmData.mappedThrottlePWM = map(pwmData.manualThrottlePWM, 1500, 2000, 1000, 1500); // actual input mapped to desired output
-  calcThrottlePercent();
-  attachInterrupt(digitalPinToInterrupt(THROTTLE_INTERRUPT_PIN), risingCH2, RISING);
+  pwmData.prevApStrPWM = pwmData.ApStrPWM;
+  unsigned long temp = (micros() - delayTime) - pwmData.ApStrTimer;
+  pwmData.ApStrPWM = acceptable(temp) ? temp : pwmData.prevApStrPWM;
+  attachInterrupt(digitalPinToInterrupt(APSTR_INTERRUPT_PIN), risingApStr, RISING);
 }
-void risingCH2()
+void risingApStr()
 {
-  pwmData.ch2Timer = micros();
-  attachInterrupt(digitalPinToInterrupt(THROTTLE_INTERRUPT_PIN), fallingCH2, FALLING);
-}
-void risingCH3();
-void fallingCH3()
-{
-  pwmData.CH3PWM = (micros() - delayTime) - pwmData.ch3Timer;
-  pwmData.ch3toggle = pwmData.CH3PWM > 1500 ? true : false;
-  attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), risingCH3, RISING);
-}
-void risingCH3()
-{
-  pwmData.ch3Timer = micros();
-  attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), fallingCH3, FALLING);
+  pwmData.ApStrTimer = micros();
+  attachInterrupt(digitalPinToInterrupt(APSTR_INTERRUPT_PIN), fallingApStr, FALLING);
 }
 
+void fallingApThr()
+{
+  pwmData.prevApThrPWM = pwmData.ApThrPWM;
+  unsigned long temp = (micros() - delayTime) - pwmData.ApThrTimer;
+  pwmData.ApThrPWM = acceptable(temp) ? temp : pwmData.prevApThrPWM;
+  attachInterrupt(digitalPinToInterrupt(APTHR_INTERRUPT_PIN), risingApThr, RISING);
+}
+void risingApThr()
+{
+  pwmData.ApThrTimer = micros();
+  attachInterrupt(digitalPinToInterrupt(APTHR_INTERRUPT_PIN), fallingApThr, FALLING);
+}
+
+void fallingStr()
+{
+  pwmData.prevStrPWM = pwmData.StrPWM;
+  unsigned long temp = (micros() - delayTime) - pwmData.StrTimer;
+  pwmData.StrPWM = acceptable(temp) ? temp : pwmData.prevStrPWM;
+  attachInterrupt(digitalPinToInterrupt(STR_INTERRUPT_PIN), risingStr, RISING);
+}
+void risingStr()
+{
+  pwmData.StrTimer = micros();
+  attachInterrupt(digitalPinToInterrupt(STR_INTERRUPT_PIN), fallingStr, FALLING);
+}
+
+void fallingThr()
+{
+  pwmData.prevThrPWM = pwmData.ThrPWM;
+  unsigned long temp = (micros() - delayTime) - pwmData.ThrTimer;
+  pwmData.ThrPWM = acceptable(temp) ? temp : pwmData.prevThrPWM;
+  attachInterrupt(digitalPinToInterrupt(THR_INTERRUPT_PIN), risingThr, RISING);
+}
+void risingThr()
+{
+  pwmData.ThrTimer = micros();
+  attachInterrupt(digitalPinToInterrupt(THR_INTERRUPT_PIN), fallingThr, FALLING);
+}
+
+void fallingCh3()
+{
+  pwmData.prevCh3PWM = pwmData.Ch3PWM;
+  unsigned long temp = (micros() - delayTime) - pwmData.Ch3Timer;
+  pwmData.Ch3PWM = acceptable(temp) ? temp : pwmData.prevCh3PWM;
+  
+  attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), risingCh3, RISING);
+}
+void risingCh3()
+{
+  pwmData.Ch3Timer = micros();
+  attachInterrupt(digitalPinToInterrupt(CH3_INTERRUPT_PIN), fallingCh3, FALLING);
+}
