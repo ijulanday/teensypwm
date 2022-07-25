@@ -1,6 +1,6 @@
 #include "teensypwm.h"
 
-PWMdata pwmData; // pwm data instance
+PWMdata pwmData; // pwm data instance...
 int delayTime = 0;  //this is like a trim kinda thing, probably keep at zero
 
 bool acceptable(unsigned long pwm) 
