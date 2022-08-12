@@ -18,7 +18,7 @@ void PWMSetup()
 }
 void smooth(long throttle)
 {
-  pwmData.smoothedThrottle = pwmData.smoothingWeight * throttle + (1.0 - pwmData.smoothingWeight) * pwmData.prevThrottle;
+  pwmData.smoothedThrottle = pwmData.smoothingWeight * (float)throttle + (1.0 - pwmData.smoothingWeight) * (float)pwmData.prevThrottle;
   pwmData.prevThrottle = pwmData.smoothedThrottle;
 }
 void fallingApStr()
